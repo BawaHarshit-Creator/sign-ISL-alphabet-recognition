@@ -6,9 +6,9 @@ from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
 
 
-# =====================================
+
 # 1. LOAD HAND DETECTION MODEL
-# =====================================
+
 
 base_options = python.BaseOptions(
     model_asset_path="hand_landmarker.task"
@@ -21,16 +21,16 @@ options = vision.HandLandmarkerOptions(
 )
 
 
-# =====================================
+
 # 2. INITIALIZE HAND DETECTOR
-# =====================================
+
 
 detector = vision.HandLandmarker.create_from_options(options)
 
 
-# =====================================
+
 # 3. HAND LANDMARK CONNECTIONS
-# =====================================
+
 
 HAND_CONNECTIONS = [
     (0, 1), (1, 2), (2, 3), (3, 4),
@@ -42,9 +42,9 @@ HAND_CONNECTIONS = [
 ]
 
 
-# =====================================
+
 # 4. START WEBCAM
-# =====================================
+
 
 cap = cv2.VideoCapture(0)
 
@@ -53,9 +53,9 @@ start_time = time.perf_counter()
 printed_landmarks = False
 
 
-# =====================================
+
 # 5. MAIN LOOP
-# =====================================
+
 
 while cap.isOpened():
 
@@ -95,9 +95,9 @@ while cap.isOpened():
     height, width, _ = frame.shape
 
 
-    # =====================================
+    
     # 6. HAND DETECTION
-    # =====================================
+    
 
     if result.hand_landmarks:
 
@@ -113,9 +113,9 @@ while cap.isOpened():
                 hand_label = "Left"
 
 
-            # =====================================
+            
             # 7. DISPLAY HAND LABEL
-            # =====================================
+            
 
             wrist_x = int(hand[0].x * width)
             wrist_y = int(hand[0].y * height)
@@ -131,9 +131,9 @@ while cap.isOpened():
             )
 
 
-            # =====================================
+            
             # 8. DRAW HAND CONNECTIONS
-            # =====================================
+           
 
             for start, end in HAND_CONNECTIONS:
 
@@ -152,9 +152,9 @@ while cap.isOpened():
                 )
 
 
-            # =====================================
+            
             # 9. EXTRACT LANDMARK COORDINATES
-            # =====================================
+           
 
             landmark_data = []
 
@@ -179,9 +179,9 @@ while cap.isOpened():
                 )
 
 
-            # =====================================
+            
             # 10. PRINT COORDINATES
-            # =====================================
+            
 
             if not printed_landmarks:
 
@@ -208,9 +208,9 @@ while cap.isOpened():
         )
 
 
-    # =====================================
+    
     # 11. DISPLAY WEBCAM
-    # =====================================
+    
 
     cv2.imshow(
         "ISL Sign Language Recognition",
@@ -223,9 +223,9 @@ while cap.isOpened():
         break
 
 
-# =====================================
+
 # 12. RELEASE RESOURCES
-# =====================================
+
 
 cap.release()
 
